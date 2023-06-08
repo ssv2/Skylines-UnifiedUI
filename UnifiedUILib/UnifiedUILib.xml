@@ -192,6 +192,12 @@
             Register custom button
             </summary>
         </member>
+        <member name="M:KianCommons.Math.BezierUtil.DirA(ColossalFramework.Math.Bezier3@)">
+            <summary>points inward(b-a)</summary>
+        </member>
+        <member name="M:KianCommons.Math.BezierUtil.DirD(ColossalFramework.Math.Bezier3@)">
+            <summary>points inward(c-d)</summary>
+        </member>
         <member name="M:KianCommons.Math.BezierUtil.Travel2(ColossalFramework.Math.Bezier3,System.Single,UnityEngine.Vector3@)">
             <summary>
             Travels some distance on bezier and calculates the point and tangent at that distance.
@@ -213,7 +219,7 @@
             <param name="endDir">should be going toward the start of the  bezier.</param>
             <returns></returns>
         </member>
-        <member name="M:KianCommons.Math.BezierUtil.Bezier3ByDir(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)">
+        <member name="M:KianCommons.Math.BezierUtil.Bezier3ByDir(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3,System.Boolean,System.Boolean)">
             <param name="startDir">should be going toward the end of the bezier.</param>
             <param name="endDir">should be going toward the start of the  bezier.</param>
             <returns></returns>
@@ -237,6 +243,14 @@
         </member>
         <member name="M:KianCommons.Math.BezierUtil.CalculateParallelBezier(ColossalFramework.Math.Bezier3,System.Single,System.Boolean)">
             <param name="bLeft">going from start to end</param>
+        </member>
+        <member name="M:KianCommons.Math.BezierUtil.SimpleShiftRight(ColossalFramework.Math.Bezier3,System.Single,System.Single)">
+            <summary>
+            shifts bezier to the right produced by NetSegment.CalculateMiddlePoints()
+            </summary>
+            <param name="shift">shift toward right-normal at any point</param>
+            <param name="vshift">vertical shift</param>
+            <returns>parallel bezier</returns>
         </member>
         <member name="M:KianCommons.Math.VectorUtil.UnsignedAngleRad(UnityEngine.Vector2,UnityEngine.Vector2)">
             <summary>
@@ -299,18 +313,6 @@
             e.g. v1=0,1 v2=1,0 => angle=pi/2
             Note: to convert CCW to CW EITHER swap v1 and v2 OR take the negative of the result.
             </summary>
-        </member>
-        <member name="M:KianCommons.Plugins.DelegateUtil.GetParameterTypes``1">
-            <typeparam name="TDelegate">delegate type</typeparam>
-            <returns>Type[] representing arguments of the delegate.</returns>
-        </member>
-        <member name="M:KianCommons.Plugins.DelegateUtil.GetMethod``1(System.Type,System.String)">
-            <summary>
-            Gets directly declared method based on a delegate that has
-            the same name as the target method
-            </summary>
-            <param name="type">the class/type where the method is declared</param>
-            <param name="name">the name of the method</param>
         </member>
         <member name="M:KianCommons.Plugins.PluginExtensions.IsActive(ColossalFramework.Plugins.PluginManager.PluginInfo)">
             <summary>
@@ -496,6 +498,11 @@
             TYPE inlinefunctionname(...) => expression.LogRet("message");
             </summary>
         </member>
+        <member name="M:KianCommons.NetUtil.GetTags(DynamicFlags)">
+            <summary>
+            WARNING: low performance!
+            </summary>
+        </member>
         <member name="M:KianCommons.NetUtil.GetLaneData(System.UInt32)">
             <summary>
             returns lane data of the given lane ID.
@@ -561,8 +568,23 @@
             sorted from outer lane to inner lane when heading toward <paramref name="startNode"/>
             </summary>
         </member>
-        <member name="F:KianCommons.LaneData.StartNode">
+        <member name="P:KianCommons.LaneData.HeadsToStartNode">
             <summary>true if the lane is going toward the start node of its segment (undefined for bidirectional lanes)</summary>
+        </member>
+        <member name="P:KianCommons.LaneData.Bezier">
+            <summary> A = segment start D = segment end</summary>
+        </member>
+        <member name="P:KianCommons.LaneData.SmoothA">
+            <inheritdoc cref="P:KianCommons.LaneData.Bezier"/>
+        </member>
+        <member name="P:KianCommons.LaneData.SmoothD">
+            <inheritdoc cref="P:KianCommons.LaneData.Bezier"/>
+        </member>
+        <member name="M:KianCommons.LaneData.GetBezier(System.Boolean)">
+            <summary>A at startNode</summary>
+        </member>
+        <member name="M:KianCommons.LaneData.GetBezier(System.UInt16)">
+            <summary>A at nodeId</summary>
         </member>
         <member name="M:KianCommons.ReflectionHelpers.CopyPropertiesForced``1(System.Object,System.Object)">
             <summary>
@@ -648,6 +670,12 @@
             <param name="method">instance method without parameters</param>
             <returns>return value of the function if any. null otherwise</returns>
         </member>
+        <member name="P:KianCommons.ReflectionHelpers.ThisMethod">
+            <summary>
+            returns TypeName.MethodName()
+            name space excluded
+            </summary>
+        </member>
         <member name="M:KianCommons.StringExtensions.Remove(System.String,System.String)">
             <summary>
             returns a new string without r
@@ -703,58 +731,58 @@
             <summary>Provides access to the git information for the current assembly.</summary>
         </member>
         <member name="F:ThisAssembly.Git.IsDirty">
-            <summary>IsDirty: false</summary>
+            <summary>IsDirty: true</summary>
         </member>
         <member name="F:ThisAssembly.Git.IsDirtyString">
-            <summary>IsDirtyString: false</summary>
+            <summary>IsDirtyString: true</summary>
         </member>
         <member name="F:ThisAssembly.Git.RepositoryUrl">
-            <summary>Repository URL: https://github.com/kianzarrin/UnifiedUI</summary>
+            <summary>Repository URL: https://github.com/ssv2/Skylines-UnifiedUI.git</summary>
         </member>
         <member name="F:ThisAssembly.Git.Branch">
             <summary>Branch: master</summary>
         </member>
         <member name="F:ThisAssembly.Git.Commit">
-            <summary>Commit: 2650aee</summary>
+            <summary>Commit: 95116cb</summary>
         </member>
         <member name="F:ThisAssembly.Git.Sha">
-            <summary>Sha: 2650aee1bd58adde2d1346e3c93a2fd168bf6db9</summary>
+            <summary>Sha: 95116cb581a34ea67a078450879cabc65871a172</summary>
         </member>
         <member name="F:ThisAssembly.Git.CommitDate">
-            <summary>Commit date: 2022-07-11T13:44:13+03:00</summary>
+            <summary>Commit date: 2023-04-25T04:06:57-04:00</summary>
         </member>
         <member name="F:ThisAssembly.Git.Commits">
-            <summary>Commits on top of base version: 0</summary>
+            <summary>Commits on top of base version: 215</summary>
         </member>
         <member name="F:ThisAssembly.Git.Tag">
-            <summary>Tag: V2.2.11</summary>
+            <summary>Tag: </summary>
         </member>
         <member name="F:ThisAssembly.Git.BaseTag">
-            <summary>Base tag: V2.2.11</summary>
+            <summary>Base tag: </summary>
         </member>
         <member name="T:ThisAssembly.Git.BaseVersion">
             <summary>Provides access to the base version information used to determine the <see cref="T:ThisAssembly.Git.SemVer" />.</summary>      
         </member>
         <member name="F:ThisAssembly.Git.BaseVersion.Major">
-            <summary>Major: 2</summary>
+            <summary>Major: 0</summary>
         </member>
         <member name="F:ThisAssembly.Git.BaseVersion.Minor">
-            <summary>Minor: 2</summary>
+            <summary>Minor: 0</summary>
         </member>
         <member name="F:ThisAssembly.Git.BaseVersion.Patch">
-            <summary>Patch: 11</summary>
+            <summary>Patch: 0</summary>
         </member>
         <member name="T:ThisAssembly.Git.SemVer">
             <summary>Provides access to SemVer information for the current assembly.</summary>
         </member>
         <member name="F:ThisAssembly.Git.SemVer.Major">
-            <summary>Major: 2</summary>
+            <summary>Major: 0</summary>
         </member>
         <member name="F:ThisAssembly.Git.SemVer.Minor">
-            <summary>Minor: 2</summary>
+            <summary>Minor: 0</summary>
         </member>
         <member name="F:ThisAssembly.Git.SemVer.Patch">
-            <summary>Patch: 11</summary>
+            <summary>Patch: 215</summary>
         </member>
         <member name="F:ThisAssembly.Git.SemVer.Label">
             <summary>Label: </summary>
@@ -763,7 +791,7 @@
             <summary>Label with dash prefix: </summary>
         </member>
         <member name="F:ThisAssembly.Git.SemVer.Source">
-            <summary>Source: Tag</summary>
+            <summary>Source: Default</summary>
         </member>
     </members>
 </doc>

@@ -25,8 +25,19 @@ namespace UnifiedUI.LifeCycle {
                 KianCommons.UI.TextureUtil.EmbededResources = false;
                 Log.VERBOSE = false;
 
-                if (PluginUtil.GetRAB().IsActive("1.10"))
-                    MainPanel.Instance.AddButton<RoundaboutBuilderButton>();
+                //try {
+
+                //    var rabPlugin = PluginUtil.GetRAB();
+                //    if (rabPlugin.IsActive("1.10")) {
+                //        Log.Info("Found Roundabout Builder, version: " + rabPlugin.userModInstance.VersionOf());
+                //        MainPanel.Instance.AddButton<RoundaboutBuilderButton>();
+                //    }
+
+                //}
+                //catch (Exception ex) {
+                //    Log.Info("error occured checking info on roundabout builder");
+                //    ex.Log();
+                //}
 
                 var grabber = Tool.Grabber.Create();
                 grabber.enabled = false;
