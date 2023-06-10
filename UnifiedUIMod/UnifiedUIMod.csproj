@@ -31,6 +31,8 @@
       ../libs/
     </AssemblySearchPaths>
     <RootNamespace>UnifiedUI</RootNamespace>
+    <AssemblyVersion>2.2.13.*</AssemblyVersion>
+    <FileVersion>2.2.13</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <!--<PackageReference Include="CitiesHarmony.API" Version="2.0.0" />-->
